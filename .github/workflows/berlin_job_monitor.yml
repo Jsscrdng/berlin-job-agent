@@ -4,7 +4,20 @@ on:
   schedule:
     # 12:00 PM Berlin CET (11:00 UTC) and 6:00 PM Berlin CET (17:00 UTC)
     - cron: '0 11,17 * * *'
-  workflow_dispatch: # Permite ejecutar manualmente con un clic en GitHub Actions
+  workflow_dispatch: # Permite ejecutar manualmente con parámetros personalizados desde la interfaz de GitHub
+    inputs:
+      location:
+        description: '📍 Ubicación de búsqueda (ej. Berlin, Hamburg, Remote)'
+        required: true
+        default: 'Berlin'
+      role:
+        description: '💼 Rol o cargo profesional (ej. Software Developer, Backend Engineer)'
+        required: true
+        default: 'Software Developer'
+      technologies:
+        description: '🛠️ Tecnologías clave requeridas (ej. Ruby on Rails, PostgreSQL)'
+        required: true
+        default: 'Ruby on Rails, PostgreSQL'
 
 permissions:
   contents: write
@@ -28,21 +41,24 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Job Monitor Pipeline
+      - name: Run Programmable Job Pipeline
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SEARCH_LOCATION: ${{ github.event.inputs.location || 'Berlin' }}
+          SEARCH_ROLE: ${{ github.event.inputs.role || 'Software Developer' }}
+          SEARCH_TECH: ${{ github.event.inputs.technologies || 'Ruby on Rails, PostgreSQL' }}
         run: |
-          python run_pipeline.py
+          python run_pipeline.py --location "$SEARCH_LOCATION" --role "$SEARCH_ROLE" --tech "$SEARCH_TECH"
 
       - name: Commit & Push New Drafts
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add vacantes_para_enviar/ jobs_tracker.db
+          git add vacantes_para_enviar/ jobs_tracker.db config/
           if git diff --staged --quiet; then
-            echo "No hay nuevas vacantes para hacer commit."
+            echo "No hay nuevos borradores para hacer commit."
           else
-            git commit -m "chore(drafts): nuevas vacantes detectadas en Berlín [skip ci]"
+            git commit -m "chore(drafts): nuevos borradores generados en $SEARCH_LOCATION para $SEARCH_ROLE [skip ci]"
             git push
           fi

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import os
+import json
 import argparse
 import sys
 from pathlib import Path
@@ -12,21 +14,36 @@ from src.generator import generate_application_draft
 from src.storage import init_db, is_job_processed, record_job
 from src.notifier import send_telegram_notification
 
-def run_job_intake(jobs_list):
+SETTINGS_PATH = PROJECT_ROOT / "config" / "settings.json"
+
+def load_settings():
+    if SETTINGS_PATH.exists():
+        with open(SETTINGS_PATH, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {}
+
+def run_job_intake(jobs_list, location="Berlin", role="Software Developer", primary_techs=None):
+    if primary_techs is None:
+        primary_techs = ["Ruby on Rails", "Ruby"]
+        
     init_db()
     profile = load_master_profile()
     processed_count = 0
     generated_folders = []
     
     print("\n" + "="*70)
-    print("🎯 BERLIN JOB APPLICATION AGENT (EGM Orchestrator)")
+    print("🎯 BERLIN JOB APPLICATION AGENT (Programmable Search Mode)")
+    print("="*70)
+    print(f"📍 Ubicación objetivo: {location}")
+    print(f"💼 Rol / Cargo:        {role}")
+    print(f"🛠️  Tecnologías clave:  {', '.join(primary_techs)}")
     print("="*70)
     
     for job in jobs_list:
-        title = job.get("title", "Software Engineer")
+        title = job.get("title", role)
         company = job.get("company", "Company")
         url = job.get("url", "#")
-        location = job.get("location", "Berlin, Germany")
+        job_loc = job.get("location", location)
         description = job.get("description", "")
         
         # 1. Deduplication check
@@ -34,8 +51,14 @@ def run_job_intake(jobs_list):
             print(f"⏩ [SKIP] Ya procesada: {company} - {title}")
             continue
             
-        # 2. Matching evaluation
-        analysis = evaluate_match(title, description, profile)
+        # 2. Matching evaluation using programmable variables
+        analysis = evaluate_match(
+            job_title=title, 
+            job_description=description, 
+            profile=profile,
+            target_location=location,
+            primary_techs=primary_techs
+        )
         score = analysis["match_score"]
         
         print(f"\n🔍 Analizando: {company} | {title}")
@@ -43,13 +66,13 @@ def run_job_intake(jobs_list):
         
         if analysis["is_qualified"]:
             folder = generate_application_draft(job, profile, analysis)
-            record_job(company, title, url, location, score, status="STAGED")
+            record_job(company, title, url, job_loc, score, status="STAGED")
             generated_folders.append((company, title, score, folder, url))
             processed_count += 1
             print(f"   ✅ [BORRADOR CREADO] -> {folder.name}")
         else:
-            print(f"   ⚠️ [DESCARTADO] Score por debajo del umbral mínimo ({score}%)")
-            record_job(company, title, url, location, score, status="DISCARDED")
+            print(f"   ⚠️ [DESCARTADO] No cumple umbral o ubicación ({score}%)")
+            record_job(company, title, url, job_loc, score, status="DISCARDED")
             
     print("\n" + "-"*70)
     print(f"🏁 Proceso completado: {processed_count} nuevos borradores generados en 'vacantes_para_enviar/'.")
@@ -69,50 +92,65 @@ def run_job_intake(jobs_list):
     print("="*70 + "\n")
 
 def main():
-    parser = argparse.ArgumentParser(description="Berlin Job Application Agent")
+    settings = load_settings()
+    search_cfg = settings.get("search", {})
+    
+    # Priority: CLI argument > Environment Variable > settings.json default
+    default_location = os.getenv("JOB_SEARCH_LOCATION", search_cfg.get("location", "Berlin"))
+    default_role = os.getenv("JOB_SEARCH_ROLE", search_cfg.get("role", "Software Developer"))
+    default_tech_str = os.getenv("JOB_SEARCH_TECH", ", ".join(search_cfg.get("primary_technologies", ["Ruby on Rails", "Ruby"])))
+
+    parser = argparse.ArgumentParser(description="Berlin Job Application Agent (Indeed)")
+    parser.add_argument("--location", type=str, default=default_location, help="Ubicación de búsqueda (ej. Berlin, Hamburg)")
+    parser.add_argument("--role", type=str, default=default_role, help="Rol o cargo (ej. Software Developer, Backend Engineer)")
+    parser.add_argument("--tech", type=str, default=default_tech_str, help="Tecnologías clave separadas por comas (ej. 'Ruby on Rails, PostgreSQL')")
     parser.add_argument("--url", type=str, help="URL de vacante para ingesta manual")
     parser.add_argument("--company", type=str, default="Empresa en Berlín", help="Nombre de la empresa")
-    parser.add_argument("--title", type=str, default="Senior Backend Developer", help="Título del puesto")
+    parser.add_argument("--title", type=str, help="Título del puesto (opcional si se pasa --role)")
     parser.add_argument("--description", type=str, default="", help="Descripción del puesto")
-    parser.add_argument("--sample", action="store_true", help="Ejecutar con vacantes de muestra de Indeed Berlín")
+    parser.add_argument("--sample", action="store_true", help="Ejecutar con vacantes de muestra")
     
     args = parser.parse_args()
+    
+    primary_techs = [t.strip() for t in args.tech.split(",") if t.strip()]
+    job_title = args.title or args.role
     
     if args.url:
         jobs = [{
             "company": args.company,
-            "title": args.title,
+            "title": job_title,
             "url": args.url,
-            "location": "Berlin, Germany",
-            "description": args.description or f"Senior Backend Engineer required. Strong expertise in Ruby on Rails, PostgreSQL, AWS, and RESTful APIs in an Agile environment."
+            "location": args.location,
+            "description": args.description or f"Position for {job_title} in {args.location}. Required tech: {', '.join(primary_techs)}."
         }]
     else:
-        # Sample realistic Berlin vacancies (Tech startups & Scaleups in Berlin)
+        # Dynamic sample jobs based on search variables
+        tech_headline = primary_techs[0] if primary_techs else "Backend"
         jobs = [
             {
                 "company": "Trade Republic",
-                "title": "Senior Backend Engineer (Ruby on Rails / PostgreSQL)",
-                "location": "Berlin, Germany",
+                "title": f"Senior {job_title} ({tech_headline})",
+                "location": f"{args.location}, Germany",
                 "url": "https://de.indeed.com/viewjob?jk=tr_berlin_rails_01",
-                "description": "We are seeking a Senior Backend Engineer in Berlin. Requirements: 5+ years with Ruby on Rails, deep experience with PostgreSQL query optimization, AWS cloud infrastructure, microservices, and TDD with RSpec. German or English fluency."
+                "description": f"We are seeking a {job_title} in {args.location}. Requirements: expertise in {', '.join(primary_techs)}, PostgreSQL query optimization, AWS cloud infrastructure, microservices, and TDD with RSpec."
             },
             {
                 "company": "Zalando SE",
-                "title": "Fullstack Software Developer (Rails & React)",
-                "location": "Berlin (Hybrid)",
+                "title": f"Fullstack {job_title} ({tech_headline} & React)",
+                "location": f"{args.location} (Hybrid)",
                 "url": "https://de.indeed.com/viewjob?jk=zalando_berlin_fullstack_02",
-                "description": "Zalando is looking for a Fullstack Developer. Key skills: Ruby on Rails, React, PostgreSQL, Docker, CI/CD, A/B testing experience, and mentoring other developers. English language proficiency."
+                "description": f"Zalando is looking for a {job_title} in {args.location}. Key skills: {', '.join(primary_techs)}, React, PostgreSQL, Docker, CI/CD, A/B testing experience, and team collaboration."
             },
             {
                 "company": "Delivery Hero",
-                "title": "Senior Backend Developer - Payments Integration",
-                "location": "Berlin, Germany",
+                "title": f"Senior {job_title} - Payments & Core Services",
+                "location": f"{args.location}, Germany",
                 "url": "https://de.indeed.com/viewjob?jk=dh_berlin_backend_03",
-                "description": "Join our global payments team in Berlin. Responsibilities: Stripe and third-party financial API integrations, Ruby / Python backend services, SQL data consistency across distributed systems, AWS and Redis."
+                "description": f"Join our core engineering team in {args.location}. Responsibilities: {', '.join(primary_techs)}, SQL data consistency across distributed systems, AWS and Redis."
             }
         ]
         
-    run_job_intake(jobs)
+    run_job_intake(jobs, location=args.location, role=job_title, primary_techs=primary_techs)
 
 if __name__ == "__main__":
     main()

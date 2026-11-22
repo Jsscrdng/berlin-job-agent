@@ -1,9 +1,11 @@
 {
   "search": {
-    "portal": "indeed.de",
+    "portal": "de.indeed.com",
     "location": "Berlin",
     "radius_km": 25,
-    "default_keywords": ["Software Engineer", "Frontend Developer", "Fullstack Developer", "Python Developer"],
+    "role": "Software Developer",
+    "primary_technologies": ["Ruby on Rails", "Ruby"],
+    "secondary_technologies": ["PostgreSQL", "AWS", "React", "Docker", "Python"],
     "work_type": "all",
     "language_filter": ["en", "de"]
   },
