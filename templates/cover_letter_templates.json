@@ -1,0 +1,18 @@
+{
+  "en": {
+    "greeting": "Dear Hiring Team at {company},",
+    "opening": "I am writing to express my strong interest in the {role} position at {company}. With over 8 years of software engineering experience specializing in Ruby on Rails, PostgreSQL, and scalable distributed systems—most recently in Berlin developing backend architectures for Sofatutor GmbH serving over 1,000,000 users—I am confident in my ability to make an immediate impact on your engineering team.",
+    "body_matching": "Your vacancy highlights requirements in {matching_skills}. Throughout my career, I have consistently tackled similar challenges: from optimizing high-volume SQL queries across millions of records (reducing query latency by >50% at Ideaware) to building high-converting A/B testing infrastructure and integrating complex third-party APIs (Stripe) under strict test-driven development (TDD) with RSpec.",
+    "berlin_status": "I am based in Berlin with full German work authorization (ANABIN H+ recognized Bachelor Elektrotechnik) and can join your team promptly without visa hurdles.",
+    "closing": "I look forward to discussing how my backend leadership, database optimization skills, and track record of delivering resilient production systems can support {company}'s goals.",
+    "signoff": "Best regards,\n\nJesús Cárdenas\nBerlin, Germany\n+49 1521 935 7287\njesus.cardenas.2494@gmail.com"
+  },
+  "de": {
+    "greeting": "Sehr geehrtes Hiring-Team von {company},",
+    "opening": "mit großem Interesse bewerbe ich mich auf die Position als {role} bei {company}. Als erfahrener Senior Software Engineer mit über 8 Jahren Erfahrung in der Entwicklung skalierbarer Backend-Architekturen (Ruby on Rails, PostgreSQL, AWS, React) – zuletzt hier in Berlin bei der Sofatutor GmbH für über 1.000.000 aktive Nutzer – möchte ich meine Expertise gewinnbringend in Ihr Team einbringen.",
+    "body_matching": "In Ihrer Stellenausschreibung legen Sie besonderen Wert auf {matching_skills}. In meinen bisherigen Stationen habe ich vergleichbare Herausforderungen erfolgreich gelöst: von der Optimierung komplexer SQL-Abfragen über Millionen von Datensätzen bis hin zur Konzeption robuster Microservices und Zahlungs-Schnittstellen (Stripe) unter konsequenter Anwendung von TDD (RSpec/Capybara).",
+    "berlin_status": "Ich lebe in Berlin, besitze die uneingeschränkte Arbeitserlaubnis für Deutschland und einen von der Zentralstelle für ausländisches Bildungswesen (ZAB/ANABIN H+) anerkannten Hochschulabschluss.",
+    "closing": "Über die Gelegenheit, mich und meine Qualifikationen in einem persönlichen Gespräch vorzustellen, freue ich mich sehr.",
+    "signoff": "Mit freundlichen Grüßen,\n\nJesús Cárdenas\nBerlin, Deutschland\n+49 1521 935 7287\njesus.cardenas.2494@gmail.com"
+  }
+}

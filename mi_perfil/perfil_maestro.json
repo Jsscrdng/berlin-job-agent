@@ -1,0 +1,168 @@
+{
+  "personal_info": {
+    "full_name": "Jesús Cárdenas A",
+    "professional_title": "Senior Software Engineer / Backend & Fullstack Developer",
+    "email": "jesus.cardenas.2494@gmail.com",
+    "alternative_emails": ["jesscrdng@gmail.com", "djcardenas@uninorte.edu.co"],
+    "phone_germany": "+49 1521 935 7287",
+    "phone_colombia": "+57 305 773 1875",
+    "city": "Berlin",
+    "country": "Germany",
+    "linkedin_url": "https://linkedin.com/in/jesuscardenas",
+    "github_url": "https://github.com/jesuscardenas",
+    "portfolio_url": ""
+  },
+  "work_authorization_germany": {
+    "has_german_work_permit": true,
+    "anabin_certified": true,
+    "anabin_details": "ANABIN equivalence with 'Bachelor Elektrotechnik' from H+ institution (Universidad del Norte)",
+    "notice_period": "Available immediately or standard notice",
+    "target_location": "Berlin, Germany (Remote / Hybrid / On-site)"
+  },
+  "languages": [
+    { "language": "Spanish", "level": "Native" },
+    { "language": "English", "level": "Fluent / Proficient (C1)" },
+    { "language": "German", "level": "Beginner (A2 in progress)" },
+    { "language": "French", "level": "Basic (8 levels - Alliance Française / Uninorte)" }
+  ],
+  "about_me_summary": "Senior Software Engineer with 8+ years of experience building scalable backend systems, RESTful APIs, and cloud-native applications. Specialized in Ruby on Rails, PostgreSQL, AWS, SQL optimization, and distributed systems. Experienced leading backend initiatives, mentoring engineers, optimizing databases, and delivering production-ready software in Agile environments.",
+  "technical_skills": {
+    "primary_backend": ["Ruby on Rails", "Ruby", "PostgreSQL", "RESTful APIs", "SQL Optimization", "API Integrations"],
+    "secondary_languages": ["Python", "JavaScript", "Java", "C", "C++", "MATLAB", "PL/SQL"],
+    "frontend": ["React", "ReactJS", "HTML5", "CSS", "SASS", "HAML", "Bootstrap"],
+    "databases": ["PostgreSQL", "MySQL", "OracleDB", "Redis", "SQL Server"],
+    "devops_cloud": ["AWS (EBS, S3, CloudFront, RDS, CloudWatch)", "Docker", "CircleCI", "Jenkins", "Google Cloud", "Heroku", "Azure"],
+    "testing_methodologies": ["TDD", "BDD", "RSpec", "Capybara", "Scrum", "Agile", "A/B Testing", "CI/CD"],
+    "domains": ["EdTech", "FinTech / Microcredits", "SaaS / Marketing Platforms", "Telemetry & IoT", "Health Insurance"]
+  },
+  "experiences": [
+    {
+      "company": "Sofatutor GmbH",
+      "location": "Berlin, Germany",
+      "role": "Fullstack Developer / Backend Developer",
+      "start_date": "2022-02",
+      "end_date": "2025-12",
+      "summary": "Built backend features for Germany's leading EdTech platform, serving 1,000,000+ school children across 6,000+ videos and 33,000+ interactive exercises in a 150-person engineering organization.",
+      "highlights": [
+        {
+          "bullet": "Architected and implemented robust backend features using Ruby on Rails, React, and PostgreSQL for sofatutor's core learning platform.",
+          "skills": ["Ruby on Rails", "React", "PostgreSQL", "Backend Architecture"]
+        },
+        {
+          "bullet": "Integrated Stripe and third-party payment services via APIs and SDKs to support subscription workflows.",
+          "skills": ["Stripe", "API Integrations", "Fintech/Payments"]
+        },
+        {
+          "bullet": "Designed and executed A/B testing initiatives driving conversion rate improvements between 1% and 3% per experiment.",
+          "skills": ["A/B Testing", "Product Growth", "Data-Driven Development"]
+        },
+        {
+          "bullet": "Reduced technical debt through continuous refactoring and comprehensive RSpec/Capybara test coverage (TDD & BDD), reducing production bugs by 90% in new feature rollouts.",
+          "skills": ["RSpec", "Capybara", "TDD", "BDD", "Bug Reduction"]
+        },
+        {
+          "bullet": "Led backend code reviews, aligned architectural upgrades, and mentored 3 backend developers in an Agile cross-functional team.",
+          "skills": ["Code Reviews", "Mentoring", "Agile", "Leadership"]
+        }
+      ]
+    },
+    {
+      "company": "Ideaware Co S.A.S",
+      "location": "Barranquilla / Remote",
+      "role": "Software Developer -> Promoted to Backend Tech Lead",
+      "start_date": "2019-08",
+      "end_date": "2022-01",
+      "summary": "Engineered core backend services from scratch for the bucket.io 2.0 marketing platform, progressing from Software Developer to Backend Tech Lead.",
+      "highlights": [
+        {
+          "bullet": "Built RESTful API services for Bucket.io 2.0 from scratch using Ruby on Rails and PostgreSQL, leading business logic modeling and schema design.",
+          "skills": ["Ruby on Rails", "PostgreSQL", "RESTful APIs", "System Design"]
+        },
+        {
+          "bullet": "Optimized complex SQL queries across databases with over 1 million records, cutting query response time by more than 50%.",
+          "skills": ["SQL Optimization", "PostgreSQL", "Database Performance"]
+        },
+        {
+          "bullet": "Provided 24/7 on-call support with DevOps on AWS production environments, refactored background job processing (Sidekiq/DelayedJobs), driving system incidents down to negligible levels.",
+          "skills": ["AWS", "DevOps", "Background Jobs", "Sidekiq", "Incident Management"]
+        },
+        {
+          "bullet": "Promoted to Backend Tech Lead after 1.5 years based on architectural contributions; provided onboarding and continuous mentorship to junior engineers.",
+          "skills": ["Technical Leadership", "Mentoring", "Team Management"]
+        }
+      ]
+    },
+    {
+      "company": "Gases del Caribe S.A. E.S.P",
+      "location": "Barranquilla, Colombia",
+      "role": "Ruby on Rails Backend Developer",
+      "start_date": "2018-12",
+      "end_date": "2019-07",
+      "summary": "Developed a full digital microcredit management platform from scratch, taking it from initial conception to production in 8 months.",
+      "highlights": [
+        {
+          "bullet": "Designed and deployed a microcredit management platform in Ruby on Rails & PostgreSQL, taking the MVP to production in 8 months.",
+          "skills": ["Ruby on Rails", "PostgreSQL", "Microcredit", "MVP"]
+        },
+        {
+          "bullet": "Built a real-time data replication and synchronization engine between the company's core Oracle PL/SQL database and the new PostgreSQL database, maintaining consistency across millions of records.",
+          "skills": ["PostgreSQL", "Oracle DB", "PL/SQL", "Data Replication", "High-Volume Data"]
+        },
+        {
+          "bullet": "Configured cloud infrastructure on AWS (EBS, S3, CloudFront, RDS, CloudWatch) and automated CI/CD releases with RSpec, CircleCI, and Jenkins.",
+          "skills": ["AWS", "CircleCI", "Jenkins", "RSpec", "CI/CD"]
+        }
+      ]
+    },
+    {
+      "company": "Nativapps",
+      "location": "Barranquilla, Colombia",
+      "role": "DevOps Engineer & Software Developer",
+      "start_date": "2018-01",
+      "end_date": "2018-12",
+      "summary": "Covered dual roles across 6+ client projects, delivering web and mobile backends before being promoted to DevOps Engineer.",
+      "highlights": [
+        {
+          "bullet": "Managed cloud infrastructure and CI/CD pipelines across AWS, Google Cloud, Heroku, and Azure for multiple production client projects.",
+          "skills": ["AWS", "GCP", "Heroku", "Azure", "DevOps", "CI/CD"]
+        },
+        {
+          "bullet": "Wrote high-performance SQL queries for a health insurance data platform operating on tables with tens of millions of records, ensuring US data protection compliance.",
+          "skills": ["SQL", "Healthcare Data", "Data Protection", "Query Optimization"]
+        },
+        {
+          "bullet": "Engineered the Ruby on Rails backend and Ionic mobile app for the BeGirl social enterprise, owning deployment to App Store and Google Play.",
+          "skills": ["Ruby on Rails", "Ionic", "Mobile Deployment", "RESTful APIs"]
+        }
+      ]
+    },
+    {
+      "company": "Emotiva LTDA",
+      "location": "Colombia",
+      "role": "Project Engineer",
+      "start_date": "2017-10",
+      "end_date": "2018-01",
+      "summary": "Led IoT telemetry, communications, and power systems engineering for maritime tugboats and locomotive fleets.",
+      "highlights": [
+        {
+          "bullet": "Led installation of AIS, GPS, CCTV, and radio telemetry on ~15 tugboats and ~6 locomotives without operational downtime.",
+          "skills": ["IoT", "Telemetry", "Hardware/Embedded", "Project Management"]
+        },
+        {
+          "bullet": "Researched and integrated OpenCV computer vision algorithms for face recognition on embedded systems and contributed to solar photovoltaic designs.",
+          "skills": ["OpenCV", "Embedded Systems", "Computer Vision", "Solar Systems"]
+        }
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Universidad del Norte",
+      "degree": "Electronic Engineering Bachelor's Degree (Bachelor Elektrotechnik)",
+      "graduation_date": "2017-03",
+      "anabin_certified": "H+ Institution (Direct German Equivalence certified)",
+      "honors": "'Orgullo Caribe' Scholarship (100% full-tuition academic merit scholarship)",
+      "final_project": "Outdoor Exploration Autonomous Robot (Robotics, GPS geolocation, and Digital Image Processing - DIP)"
+    }
+  ]
+}

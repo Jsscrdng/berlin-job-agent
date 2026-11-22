@@ -1,0 +1,21 @@
+{
+  "search": {
+    "portal": "indeed.de",
+    "location": "Berlin",
+    "radius_km": 25,
+    "default_keywords": ["Software Engineer", "Frontend Developer", "Fullstack Developer", "Python Developer"],
+    "work_type": "all",
+    "language_filter": ["en", "de"]
+  },
+  "matching": {
+    "min_match_score": 75,
+    "max_daily_drafts": 5
+  },
+  "paths": {
+    "profile_master": "mi_perfil/perfil_maestro.json",
+    "source_docs": "mi_perfil/documentos_fuente",
+    "drafts_folder": "vacantes_para_enviar",
+    "applied_folder": "enviadas",
+    "discarded_folder": "descartadas"
+  }
+}
